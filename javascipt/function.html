@@ -4,14 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        #adi{
+            border:5px solid red;
+            height: 300px;
+            width: 300px;
+            background-color: chocolate;
+        }
+    </style>
 </head>
 <body>
-    <script>
-        function abes(){
-            document.write("<h1>Hi we are student of abesec</h1>");
-        }
-        abes();
-    </script>
-    
+   <div id="adi">
+    <button onclick="ad()">click</button>
+    <p id="aaa"></p>
+   </div>
+   <script>
+    function ad(){
+        document.getElementById("aaa").innerHTML="<h1>Hellow</h1>";
+    }
+
+   </script>
 </body>
+
 </html>
