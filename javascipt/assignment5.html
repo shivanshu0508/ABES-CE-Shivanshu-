@@ -20,7 +20,8 @@
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
             text-align: center;
-            width: 250px;
+            width: 300px;
+            margin: 30px;
         }
 
         .count {
@@ -46,6 +47,17 @@
             background-color: #f44336;
             color: white;
         }
+        #img{
+            margin: 30px;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            text-align: center;
+            width: 300px;
+            margin: 30px;
+
+        }
     </style>
 </head>
 <body>
@@ -55,10 +67,17 @@
         <button class="minus" onclick="decrease()">-</button>
         <button class="plus" onclick="increase()">+</button>
     </div>
+    <div id="img">
+        <img src="counter.webp" style="width: 150px;" id="myImage">
+        <button onclick="hideImage()">Hide</button>
+    </div>
+    <div id="img">
+        <img src="counter.webp" style="width: 150px;" id="myImage1">
+        <button onclick="changeImage()">Change</button>
+    </div>
 
     <script>
         let count = 0;
-
         function increase() {
             count++;
             document.getElementById("counter").innerText = count;
@@ -68,6 +87,16 @@
             count--;
             document.getElementById("counter").innerText = count;
         }
+        function hideImage() {
+      document.getElementById("myImage").style.display = "none";}
+       function changeImage() {
+        var img = document.getElementById("myImage1");
+        if (img.src.includes("counter.webp")) {
+            img.src = "img2.jpg";
+        } else {
+            img.src = "counter.webp";
+        }
+    }
     </script>
 </body>
 </html>
