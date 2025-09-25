@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>To Do List</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+    }
+    .container {
+      width: 500px;
+      margin: auto;
+      border: 1px solid #ccc;
+      padding: 20px;
+      border-radius: 10px;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 5px;
+    }
+    .label {
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .task-input {
+      display: flex;
+      margin-bottom: 10px;
+    }
+    .task-input input {
+      flex: 1;
+      padding: 5px;
+    }
+    .task-input button {
+      margin-left: 5px;
+      padding: 5px 10px;
+    }
+    #listButton {
+      margin-top: 10px;
+      width: 100%;
+      padding: 8px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    #listButton:hover {
+      background-color: #0056b3;
+    }
+    #taskList {
+      margin-top: 20px;
+    }
+    ul {
+      list-style: none;
+      padding-left: 0;
+    }
+    ul li::before {
+      content: "* ";
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>To Do List</h2>
+  <div class="label">Add Task:</div>
+
+  <div id="taskInputs">
+    <div class="task-input">
+      <input type="text" placeholder="Enter task" />
+      <button onclick="addTaskField(this)">+</button>
+    </div>
+  </div>
+
+  <!-- ✅ List of All Button -->
+  <button id="listButton" onclick="showAllTasks()">List of All</button>
+
+  <!-- ✅ Task List Display -->
+  <div id="taskList" style="display:none;">
+    <h3>Tasks:</h3>
+    <ul id="listDisplay"></ul>
+  </div>
+</div>
+
+<script>
+  function addTaskField(button) {
+    const parentDiv = button.parentElement;
+    const inputValue = parentDiv.querySelector('input').value.trim();
+
+    if (inputValue === "") {
+      alert("Please enter a task before adding a new one.");
+      return;
+    }
+
+    // Disable current + button
+    button.disabled = true;
+
+    // Create a new task input
+    const newInputDiv = document.createElement('div');
+    newInputDiv.className = 'task-input';
+
+    const newInput = document.createElement('input');
+    newInput.type = 'text';
+    newInput.placeholder = 'Enter task';
+
+    const newButton = document.createElement('button');
+    newButton.innerText = '+';
+    newButton.onclick = function () {
+      addTaskField(newButton);
+    };
+
+    newInputDiv.appendChild(newInput);
+    newInputDiv.appendChild(newButton);
+
+    document.getElementById('taskInputs').appendChild(newInputDiv);
+  }
+
+  function showAllTasks() {
+    const inputs = document.querySelectorAll('#taskInputs input');
+    const list = document.getElementById('listDisplay');
+    list.innerHTML = ""; // Clear previous list
+
+    let hasValue = false;
+    inputs.forEach(input => {
+      const value = input.value.trim();
+      if (value !== "") {
+        hasValue = true;
+        const li = document.createElement('li');
+        li.textContent = value;
+        list.appendChild(li);
+      }
+    });
+
+    if (hasValue) {
+      document.getElementById('taskInputs').style.display = 'none';
+      document.querySelector('.label').style.display = 'none';
+      document.getElementById('listButton').style.display = 'none';
+      document.getElementById('taskList').style.display = 'block';
+    } else {
+      alert("Please enter at least one task.");
+    }
+  }
+</script>
+
+</body>
+</html>
