@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Resume Maker</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      padding: 40px 20px;
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      gap: 50px;
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      max-width: 1000px;
+      margin: auto;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    }
+
+    .resume {
+      width: 400px;
+      padding: 25px;
+      border: 2px solid #ddd;
+      border-radius: 10px;
+      background: #fafafa;
+    }
+
+    .resume img {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      display: block;
+      margin: 0 auto 20px auto;
+    }
+
+    .resume h1 {
+      font-size: 26px;
+      text-align: center;
+      margin: 10px 0 20px;
+    }
+
+    .resume p, .resume ul {
+      font-size: 16px;
+      margin-bottom: 15px;
+    }
+
+    .form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      width: 400px;
+    }
+
+    input, textarea, button {
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    button {
+      background: #007BFF;
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #0056b3;
+    }
+
+    @media screen and (max-width: 900px) {
+      .container {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .resume, .form {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Resume Preview -->
+    <div class="resume">
+      <img id="profilePic" src="" alt="Profile Image">
+      <h1 id="name">Your Name</h1>
+      <p><b>Education:</b> <span id="class">B.Tech</span></p>
+      <p><b>Skills:</b></p>
+      <ul id="skillsList"></ul>
+      <p><b>Address:</b> <span id="address"></span></p>
+    </div>
+
+    <!-- Form -->
+    <div class="form">
+      <input type="text" id="inputName" placeholder="Enter Name">
+      <input type="text" id="inputClass" placeholder="Enter Education (e.g. B.Tech)">
+      <input type="text" id="inputSkill" placeholder="Enter Skills (comma separated)">
+      <textarea id="inputAddress" placeholder="Enter Address"></textarea>
+      <button onclick="generateResume()">Generate Resume</button>
+    </div>
+  </div>
+
+  <script>
+    function generateResume() {
+      document.getElementById("name").innerText = document.getElementById("inputName").value;
+      document.getElementById("class").innerText = document.getElementById("inputClass").value;
+
+      // Skills
+      let skills = document.getElementById("inputSkill").value.split(",");
+      let skillList = document.getElementById("skillsList");
+      skillList.innerHTML = "";
+      skills.forEach(skill => {
+        if (skill.trim() !== "") {
+          let li = document.createElement("li");
+          li.innerText = skill.trim();
+          skillList.appendChild(li);
+        }
+      });
+
+      document.getElementById("address").innerText = document.getElementById("inputAddress").value;
+    }
+  </script>
+
+</body>
+</html>
