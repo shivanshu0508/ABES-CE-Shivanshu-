@@ -11,4 +11,4 @@ function Card(props) {
   )
 }
 
-export default Card
+export default export Card;

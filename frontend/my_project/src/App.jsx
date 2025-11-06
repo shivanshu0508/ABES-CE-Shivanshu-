@@ -1,10 +1,10 @@
 import React from 'react'
-import Count1 from './component/Count1'
+import Link1 from './component/Link1'
 
 function App() {
   return (
     <div>
-      <Count1 />
+      <Link1 />
     </div>
   )
 }
