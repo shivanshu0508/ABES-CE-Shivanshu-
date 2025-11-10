@@ -1,4 +1,12 @@
-#adi{
-  text-align: center;
+#adi {
   display: flex;
+  flex-direction: column;
+}
+
+.book-list {
+  margin-top: 50px; 
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
 }

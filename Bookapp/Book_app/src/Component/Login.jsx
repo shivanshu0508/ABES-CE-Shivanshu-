@@ -13,6 +13,7 @@ function Login() {
         <input type="password" placeholder="Enter your password" />
 
         <button type="submit">Login</button>
+        
       </form>
     </div>
   );

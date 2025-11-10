@@ -1,4 +1,38 @@
-#nav{
-    height: 40px;
-    color: aqua;
+.navbar {
+  background-color: #222;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  width: 100%;
+  box-sizing: border-box; /* prevents overflow from padding */
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  overflow-x: hidden; /* stops horizontal scrolling */
+}
+
+.nav-logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+}
+
+.nav-links a:hover {
+  color: gold;
 }
