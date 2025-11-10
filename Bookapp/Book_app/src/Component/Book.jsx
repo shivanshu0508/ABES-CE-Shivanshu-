@@ -24,11 +24,10 @@ function Book(props) {
       return
     }
 
-    
     props.onAddToCart({
       title: props.title,
       quantity: count,
-      price: props.price * count,  
+      price: props.price * count,
     })
 
     alert(`${props.title} added to cart!`)

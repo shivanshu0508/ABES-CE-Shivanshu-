@@ -13,42 +13,22 @@ function App() {
     setCart(prevCart => [...prevCart, item])
   }
 
-  const totalPrice = cart.reduce((sum, item) => sum + item.price, 0)
+  const cartCount = cart.length
 
   return (
     <Router>
       <div id='all'>
-        <Nav />
+        <Nav cartCount={cartCount} />
         <div id="adi">
           <Routes>
             <Route
               path="/"
               element={
-                <>
-                  <div className="book-list">
-                    <Book title="Physics" price={200} onAddToCart={handleAddToCart} />
-                    <Book title="Chemistry" price={400} onAddToCart={handleAddToCart} />
-                    <Book title="Mathematics" price={500} onAddToCart={handleAddToCart} />
-                  </div>
-
-                  <div className="cart-section" style={{ marginTop: "40px", padding: "20px", borderTop: "2px solid black" }}>
-                    <h2>🛒 Cart</h2>
-                    {cart.length === 0 ? (
-                      <p>No items in cart</p>
-                    ) : (
-                      <>
-                        <ul>
-                          {cart.map((item, index) => (
-                            <li key={index}>
-                              {item.title} — Quantity: {item.quantity} — ₹{item.price}
-                            </li>
-                          ))}
-                        </ul>
-                        <h3>Total Price: ₹{totalPrice}</h3>
-                      </>
-                    )}
-                  </div>
-                </>
+                <div className="book-list">
+                  <Book title="Physics" price={200} onAddToCart={handleAddToCart} />
+                  <Book title="Chemistry" price={400} onAddToCart={handleAddToCart} />
+                  <Book title="Mathematics" price={500} onAddToCart={handleAddToCart} />
+                </div>
               }
             />
             <Route path="/login" element={<Login />} />
