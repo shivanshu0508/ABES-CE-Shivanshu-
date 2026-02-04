@@ -21,33 +21,50 @@ function Weather() {
   };
 
   const getWeather = async () => {
-    if (!city) return;
-
-    // Convert city → coordinates
-    const geoRes = await fetch(
-      `https://geocoding-api.open-meteo.com/v1/search?name=${city}`
-    );
-    const geoData = await geoRes.json();
-
-    if (!geoData.results) {
-      setWeather({ error: "City not found" });
+    const cityName = city.trim();
+    if (!cityName) {
+      setWeather({ error: "Please enter a city name" });
       return;
     }
 
-    const { latitude, longitude } = geoData.results[0];
+    try {
+      // 1️⃣ Get coordinates for the city
+      const geoRes = await fetch(
+        `https://geocoding-api.open-meteo.com/v1/search?name=${cityName}&count=1`
+      );
+      const geoData = await geoRes.json();
 
-    // Fetch real-time weather only
-    const res = await fetch(
-      `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true&timezone=auto`
-    );
+      if (!geoData.results || geoData.results.length === 0) {
+        setWeather({ error: "City not found. Try a different name!" });
+        return;
+      }
 
-    const data = await res.json();
-    setWeather(data.current_weather);
+      const { latitude, longitude, name, country } = geoData.results[0];
+
+      // 2️⃣ Fetch real-time weather
+      const res = await fetch(
+        `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true&timezone=auto`
+      );
+
+      const data = await res.json();
+
+      if (!data.current_weather) {
+        setWeather({ error: "Weather data unavailable" });
+        return;
+      }
+
+      setWeather({
+        ...data.current_weather,
+        location: `${name}, ${country}`,
+      });
+    } catch (err) {
+      setWeather({ error: "Network error, Try again!" });
+    }
   };
 
   return (
     <div className="weather-container">
-      <h2 className="title">🌦Weather App</h2>
+      <h2 className="title">🌦 Weather App</h2>
 
       <div className="search-box">
         <input
@@ -63,15 +80,15 @@ function Weather() {
         </button>
       </div>
 
-      {/* Real-Time Weather */}
+      {/* Weather Info */}
       {weather && !weather.error && (
         <div className="weather-card">
-          <h3 className="city-name">{city.toUpperCase()}</h3>
+          <h3 className="city-name">{weather.location}</h3>
 
           <p className="temp">🌡 Temperature: {weather.temperature}°C</p>
           <p>💨 Wind Speed: {weather.windspeed} km/h</p>
           <p>🧭 Wind Direction: {weather.winddirection}°</p>
-          <p>🌤 Condition: {weatherCodes[weather.weathercode]}</p>
+          <p>🌥 Condition: {weatherCodes[weather.weathercode]}</p>
         </div>
       )}
 
